@@ -14,22 +14,7 @@ class RandomUserAPI
         try {
             $curl = curl_init();
 
-            // Set cURL options
-            curl_setopt($curl, CURLOPT_URL, $this->url);  // Set the URL
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);  // Return the response as a string
-            curl_setopt($curl, CURLOPT_HEADER, false);  // Exclude the header from the response
-
-            // Disable SSL certificate verification
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-            // Execute the cURL request
-            $response = curl_exec($curl);
-
-            // Check for cURL errors
-            if (curl_errno($curl)) {
-                throw new Exception(curl_error($curl));
-            }
-
+            $response = $this->curlConnection($curl,$this->url);
             // Close the cURL session
             curl_close($curl);
 
@@ -58,6 +43,25 @@ class RandomUserAPI
         }
         return ['message' => 'success','code' => 200,'data' => $users];
 
+    }
+
+    public function curlConnection($curl,$url){
+        // Set cURL options
+        curl_setopt($curl, CURLOPT_URL, $this->url);  // Set the URL
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);  // Return the response as a string
+        curl_setopt($curl, CURLOPT_HEADER, false);  // Exclude the header from the response
+
+        // Disable SSL certificate verification
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        // Execute the cURL request
+        $response = curl_exec($curl);
+
+        // Check for cURL errors
+        if (curl_errno($curl)) {
+            throw new Exception(curl_error($curl));
+        }
+        return $response;
     }
 }
 
