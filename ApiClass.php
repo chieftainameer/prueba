@@ -47,7 +47,7 @@ class RandomUserAPI
 
     public function curlConnection($curl,$url){
         // Set cURL options
-        curl_setopt($curl, CURLOPT_URL, $this->url);  // Set the URL
+        curl_setopt($curl, CURLOPT_URL, $url);  // Set the URL
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);  // Return the response as a string
         curl_setopt($curl, CURLOPT_HEADER, false);  // Exclude the header from the response
 
